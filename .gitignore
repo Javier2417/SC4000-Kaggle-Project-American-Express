@@ -1,5 +1,6 @@
 # Ignore the large data folder
 /data/
+/YuTeng/data
 
 # Ignore Python virtual environment folders
 venv/
