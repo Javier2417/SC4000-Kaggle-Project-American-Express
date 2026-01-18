@@ -1,46 +1,28 @@
-# SC4000-Kaggle-Project-American-Express
-American Express Default Prediction: High-Scale Binary Classification
-Rank 11 (Top 15%) Reproduction & Pipeline Optimization
+# AMEX Default Prediction: Collaborative High-Scale Classification
+### Rank 11 (Top 15%) | SC4000 Team Project (NTU)
 
 ## 📌 Project Overview
-This project focuses on predicting credit default using a large-scale industrial dataset from American Express. The primary challenge was managing 5.5M+ records (over 50GB raw) while engineering temporal features to capture customer behavior deterioration over time.
+This project was developed as a collaborative effort for the SC4000 Machine Learning module at NTU. The goal was to predict credit default for American Express using an industrial-scale dataset of 5.5M+ records. Our team achieved a Top 15% placement by implementing a robust, memory-efficient pipeline and a diverse stacked ensemble.
 
-This repository serves as a technical reproduction and optimization of state-of-the-art (SOTA) solutions, benchmarking pipeline efficiency and memory management in a resource-constrained environment.
+## 🛠️ Individual Technical Focus (Javier Tin)
+While this was a team effort, my primary responsibilities focused on the end-to-end pipeline infrastructure and memory management:
 
-## 🛠️ Technical Highlights
-Memory Optimization: Implemented chunk-based processing and float16 downcasting, reducing memory footprint by ~70% to allow for local training on consumer-grade hardware.
+Pipeline Optimization: Engineered a high-performance training pipeline using chunk-based processing and float16 downcasting to manage 50GB+ of raw data on limited hardware.
 
-Temporal Feature Engineering: Engineered complex features across multiple time windows, including lagged means, first/last ratios, and aggregated deterioration metrics.
+Temporal Feature Engineering: Developed lagged behavior features and deterioration metrics to capture shifting customer credit profiles.
 
-Ensemble Architecture: Built a two-layer stacked ensemble utilizing LightGBM, CatBoost, and DART models, optimized via a Logistic Regression meta-learner.
+Model Contribution: Personally implemented and tuned the LightGBM and DART base models and architected the final Logistic Regression meta-learner for model blending.
 
-Validation Strategy: Utilized GroupKFold cross-validation to ensure model robustness and prevent leakage across customer IDs, resulting in a significant climb from public to private leaderboard rankings.
+## 🤝 Team Ensemble Strategy
+Our high ranking was the result of a diverse Stacked Ensemble, combining multiple architectures to minimize variance and capture non-linear relationships:
 
-## 🏗️ Model Architecture
-The final model utilizes a stacking approach to blend the strengths of different gradient-boosting frameworks:
+Base Models: Included a mix of Gradient Boosted Decision Trees (LGBM, CatBoost, and XGBoost) and deep learning approaches contributed by team members (Yu Teng and others).
 
-Level 0 (Base Models):
+Diversity Gain: By combining models with different inductive biases, the team was able to achieve a significant boost in the competition metric that no single model could reach alone.
 
-LightGBM: Fast training and excellent handling of categorical features.
+Stacking: Predictions from all team members were aggregated into a Level-1 meta-learner to maximize generalization on the private leaderboard.
 
-CatBoost: Robust handling of noisy features and high-cardinality data.
+## 📊 Results & Reproducibility
+Private Leaderboard Score: 0.798 (Rank 11 / Top 15%).
 
-DART: Dropouts meet Multiple Additive Regression Trees to prevent over-reliance on specific features.
-
-Level 1 (Meta-Learner):
-
-Logistic Regression: A simple, linear meta-learner to blend predictions and maximize the Amex-specific competition metric.
-
-## 📊 Results
-Private Leaderboard Score: 0.798 (Equivalent to Rank 11 / Top 15%)
-
-Performance: Achieved high stability across timefolds, moving up 200+ spots from public to private rankings through robust feature selection.
-
-## 🧪 Reproducibility & Acknowledgements
-This project was developed as a benchmark for the SC4000 Machine Learning module at NTU.
-
-To maintain intellectual honesty and technical transparency:
-
-The architecture was inspired by top-performing community strategies from the original 2022 competition.
-
-The primary objective of this repository was the independent implementation of these strategies, specifically focusing on the software engineering challenges of scaling the pipeline to handle 5.5M records.
+Honesty & Transparency: This repository serves as a technical record of my specific contributions to the group project. It acknowledges the use of community-vetted strategies as a benchmark for independent implementation and optimization.
